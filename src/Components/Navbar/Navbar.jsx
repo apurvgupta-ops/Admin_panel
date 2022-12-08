@@ -1,12 +1,21 @@
 import React from "react";
-import { CgLayoutList, CgList, CgListTree, CgSearch } from "react-icons/cg";
 import {
+  CgLayoutList,
+  CgList,
+  CgListTree,
+  CgProfile,
+  CgSearch,
+} from "react-icons/cg";
+import {
+  MdChatBubble,
   MdDarkMode,
   MdFullscreenExit,
   MdLanguage,
   MdNotifications,
 } from "react-icons/md";
 import { TbChartBubble } from "react-icons/tb";
+
+import "./navbar.scss";
 
 const Navbar = () => {
   return (
@@ -18,22 +27,27 @@ const Navbar = () => {
         </div>
         <div className="items">
           <div className="item">
-            <MdLanguage /> English
+            <MdLanguage className="icon" /> English
           </div>
           <div className="item">
-            <MdDarkMode />
+            <MdDarkMode className="icon" />
           </div>
           <div className="item">
-            <MdFullscreenExit />
+            <MdFullscreenExit className="icon" />
           </div>
           <div className="item">
-            <MdNotifications />
+            <MdNotifications className="icon" />
+            <div className="counter">1</div>
           </div>
           <div className="item">
-            <TbChartBubble />
+            <MdChatBubble className="icon" />
+            <div className="counter">2</div>
           </div>
           <div className="item">
-            <CgLayoutList />
+            <CgLayoutList className="icon" />
+          </div>
+          <div className="item">
+            <CgProfile className="icon" />
           </div>
         </div>
       </div>
