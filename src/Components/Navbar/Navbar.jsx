@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  CgLayoutList,
-  CgList,
-  CgListTree,
-  CgProfile,
-  CgSearch,
-} from "react-icons/cg";
+import { CgLayoutList, CgProfile, CgSearch } from "react-icons/cg";
 import {
   MdChatBubble,
   MdDarkMode,
@@ -13,7 +7,6 @@ import {
   MdLanguage,
   MdNotifications,
 } from "react-icons/md";
-import { TbChartBubble } from "react-icons/tb";
 
 import "./navbar.scss";
 
