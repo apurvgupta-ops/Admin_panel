@@ -15,9 +15,12 @@ const Featured = () => {
       <div className="bottom">
         <div className="featuredChart">
           <CircularProgressbar
-            value={percentage}
-            text={`${percentage}%`}
+            value={70}
+            text={`70%`}
             styles={buildStyles({
+              display: "flex",
+              justifyContent: "center",
+              alignItem: "center",
               pathTransitionDuration: 0.5,
               pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
               trailColor: "#d6d6d6",

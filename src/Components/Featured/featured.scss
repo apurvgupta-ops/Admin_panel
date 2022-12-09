@@ -23,8 +23,8 @@
     gap: 15px;
 
     .featuredChart {
-      width: 100px;
-      height: 100px;
+      width: 200px;
+      height: 200px;
     }
 
     .title {
@@ -32,7 +32,7 @@
       color: grey;
     }
     .amount {
-      font-size: 15px;
+      font-size: 25px;
     }
     .desc {
       font-weight: 500;
@@ -42,6 +42,7 @@
     }
 
     .summary {
+      margin-top: 30px;
       display: flex;
       justify-content: space-between;
       align-content: center;
