@@ -13,32 +13,39 @@ import { GrSystem } from "react-icons/gr";
 import { SiLogstash } from "react-icons/si";
 import { CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import "./sidebar.scss";
 const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <span className="logo">Admin Panel</span>
+        <Link to={"/"} style={{ textDecoration: "none" }}>
+          <span className="logo">Admin Panel</span>
+        </Link>
       </div>
       <hr />
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-
-          <li>
-            <MdDashboardCustomize className="icons" />
-            <span>Dashboard</span>
-          </li>
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <li>
+              <MdDashboardCustomize className="icons" />
+              <span>Dashboard</span>
+            </li>
+          </Link>
           <p className="title">LISTS</p>
-
-          <li>
-            <RiMapPinUserFill className="icons" />
-            <span> Users</span>
-          </li>
-          <li>
-            <FaProductHunt className="icons" />
-            <span>Products</span>
-          </li>
+          <Link to={"/users"} style={{ textDecoration: "none" }}>
+            <li>
+              <RiMapPinUserFill className="icons" />
+              <span> Users</span>
+            </li>
+          </Link>
+          <Link to={"/products"} style={{ textDecoration: "none" }}>
+            <li>
+              <FaProductHunt className="icons" />
+              <span>Products</span>
+            </li>
+          </Link>
           <li>
             <MdShoppingCart className="icons" />
             <span> Orders</span>
