@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
 import "./add.scss";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState } from "react";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   addDoc,
   collection,
@@ -11,18 +12,66 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../FirebaseConfig";
+import { auth, db, storage } from "../../FirebaseConfig";
+import { useNavigate } from "react-router-dom";
+
 const AddUser = ({ inputs, title }) => {
+  const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
+  const [percentage, setPercentage] = useState(null);
   // console.log(file);
+
+  //INPUT HANDLING
   const handleInput = (e) => {
     e.preventDefault();
     setData({ ...data, [e.target.id]: e.target.value });
     // console.log(data);
   };
+
+  //ADD IMAGE IN THE DB
+  useEffect(() => {
+    const uploadImage = () => {
+      const uniqueName = new Date().getTime() + file.name;
+      // console.log(uniqueName);
+
+      const storageRef = ref(storage, file.name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          setPercentage(progress);
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setData((prev) => ({ ...prev, img: downloadURL }));
+            // console.log("File available at", downloadURL);
+          });
+        }
+      );
+    };
+
+    file && uploadImage();
+  }, [file]);
+
+  // ADD USER IN THE DB
   const handleAdd = async (e) => {
     e.preventDefault();
+
     try {
       const res = await createUserWithEmailAndPassword(
         auth,
@@ -33,6 +82,8 @@ const AddUser = ({ inputs, title }) => {
         ...data,
         timestamp: serverTimestamp(),
       });
+      navigate("/users");
+
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -83,7 +134,12 @@ const AddUser = ({ inputs, title }) => {
                   />
                 </div>
               ))}
-              <button type="submit">Send</button>
+              <button
+                type="submit"
+                disabled={percentage !== null && percentage < 100}
+              >
+                Send
+              </button>
             </form>
           </div>
         </div>

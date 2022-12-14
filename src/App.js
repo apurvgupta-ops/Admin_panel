@@ -18,7 +18,7 @@ const App = () => {
     return user ? children : <Navigate to="/login" />;
   };
 
-  console.log(user);
+  // console.log(user);
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
